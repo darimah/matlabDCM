@@ -129,38 +129,38 @@ params.UBV_estimated = UBV_est;
 params.SBV_estimated = SBV_est;
 
 % Initial bounds untuk optimisasi (dari Tabel 1, Bozkurt 2022)
-% Untuk anak dengan mild DCM (Model 1)
-bounds.Ees_lv = [1.5, 3.5];      % mmHg/mL
-bounds.Ees_rv = [1.0, 2.0];      % mmHg/mL
-bounds.V0_lv = [5, 10];          % mL
-bounds.V0_rv = [5, 10];          % mL
-bounds.Alv = [0.9, 1.3];         % mmHg
-bounds.Arv = [0.9, 1.3];         % mmHg
-bounds.Blv = [0.02, 0.03];       % 1/mL
-bounds.Brv = [0.02, 0.03];       % 1/mL
-bounds.Rao = [0.038, 0.058];     % mmHg·s/mL
-bounds.Cao = [0.173, 0.273];     % mL/mmHg
-bounds.Ras = [0.5, 1.1];         % mmHg·s/mL
-bounds.Cas = [0.333, 0.833];     % mL/mmHg
-bounds.Rvs = [0.038, 0.058];     % mmHg·s/mL
-bounds.Cvs = [11.35, 16.35];     % mL/mmHg
-bounds.Rpo = [0.007, 0.012];     % mmHg·s/mL
-bounds.Cpo = [1.333, 2.583];     % mL/mmHg
-bounds.Rap = [0.138, 0.158];     % mmHg·s/mL
-bounds.Cap = [0.053, 0.103];     % mL/mmHg
-bounds.Rvp = [0.038, 0.058];     % mmHg·s/mL
-bounds.Cvp = [11.35, 16.35];     % mL/mmHg
+% DISESUAIKAN UNTUK DCM: kontraktilitas rendah, volume besar
+bounds.Ees_lv = [0.5, 3.5];      % mmHg/mL - LEBIH RENDAH untuk DCM
+bounds.Ees_rv = [0.5, 2.0];      % mmHg/mL - LEBIH RENDAH untuk DCM
+bounds.V0_lv = [5, 30];          % mL - LEBIH BESAR untuk DCM
+bounds.V0_rv = [5, 20];          % mL - LEBIH BESAR untuk DCM
+bounds.Alv = [0.5, 1.3];         % mmHg - LEBIH RENDAH untuk DCM (diastolic dysfunction)
+bounds.Arv = [0.5, 1.3];         % mmHg
+bounds.Blv = [0.015, 0.035];     % 1/mL - LEBIH LEBAR
+bounds.Brv = [0.015, 0.035];     % 1/mL
+bounds.Rao = [0.03, 0.07];       % mmHg·s/mL - LEBIH LEBAR
+bounds.Cao = [0.15, 0.35];       % mL/mmHg - LEBIH LEBAR
+bounds.Ras = [0.4, 2.0];         % mmHg·s/mL - LEBIH TINGGI untuk DCM (afterload tinggi)
+bounds.Cas = [0.25, 1.0];        % mL/mmHg - LEBIH LEBAR
+bounds.Rvs = [0.03, 0.07];       % mmHg·s/mL
+bounds.Cvs = [10.0, 18.0];       % mL/mmHg - LEBIH LEBAR
+bounds.Rpo = [0.005, 0.015];     % mmHg·s/mL
+bounds.Cpo = [1.0, 3.0];         % mL/mmHg - LEBIH LEBAR
+bounds.Rap = [0.10, 0.20];       % mmHg·s/mL
+bounds.Cap = [0.04, 0.12];       % mL/mmHg
+bounds.Rvp = [0.03, 0.07];       % mmHg·s/mL
+bounds.Cvp = [10.0, 18.0];       % mL/mmHg - LEBIH LEBAR
 
 % BOUNDS VBLOOD BERDASARKAN ESTIMASI TBV
-% Gunakan ±20% dari estimasi TBV sebagai bounds
-Vblood_margin = 0.20;  % ±20%
+% Gunakan ±30% untuk DCM (lebih lebar karena variabilitas tinggi)
+Vblood_margin = 0.30;  % ±30% untuk DCM
 bounds.Vblood = [TBV_est * (1 - Vblood_margin), ...
                  TBV_est * (1 + Vblood_margin)];
-fprintf('   Vblood bounds (±20%% dari TBV): [%.0f, %.0f] mL\n', ...
+fprintf('   Vblood bounds (±30%% dari TBV): [%.0f, %.0f] mL\n', ...
     bounds.Vblood(1), bounds.Vblood(2));
 
-bounds.Klv = [1.0, 2.0];         % -
-bounds.Krv = [1.5, 4.5];         % -
+bounds.Klv = [0.8, 2.5];         % - LEBIH LEBAR untuk DCM (remodeling)
+bounds.Krv = [1.0, 5.0];         % - LEBIH LEBAR
 
 params.bounds = bounds;
 
@@ -169,11 +169,11 @@ fprintf('   Total parameters to optimize: 23\n\n');
 
 %% 4. OPTIMISASI PARAMETER
 fprintf('[3/6] Memulai optimisasi parameter...\n');
-fprintf('   Metode: Direct Search (Pattern Search)\n');
+fprintf('   Metode: Improved Direct Search (3-Phase Algorithm)\n');
 fprintf('   Target: MAP dan CO\n\n');
 
-% Jalankan optimisasi
-[optimized_params, optimization_results] = optimize_parameters(params);
+% Jalankan optimisasi dengan algoritma yang lebih baik
+[optimized_params, optimization_results] = optimize_parameters_v2(params);
 
 fprintf('   Optimisasi selesai!\n');
 fprintf('   Objective function: %.4f\n', optimization_results.final_objective);
@@ -194,20 +194,26 @@ end
 n_cycles = 3;
 tspan = [0, n_cycles * T];
 
-% Initial conditions
-% [Vlv, Vla, Vrv, Vra, pao, Qao, pas, Qas, pvs, ...]
-IC = zeros(14, 1); % mengubah jadi 14 karena error, rumus cuma bisa mengolah 14 angka tp initial awal 20
-IC(1) = patient_data.Vlv_dias;  % Vlv
-IC(2) = 50;   % Vla (estimasi)
-IC(3) = patient_data.Vrv_dias;  % Vrv
-IC(4) = 60;   % Vra (estimasi)
-IC(5) = patient_data.Pao_dias;  % pao
-IC(6) = 0;    % Qao
-IC(7) = 80;   % pas (estimasi)
-IC(8) = 0;    % Qas
+% Initial conditions - HARUS SAMA dengan yang digunakan saat optimisasi!
+% [Vlv, Vla, Vrv, Vra, pao, Qao, pas, Qas, pvs, ppo, Qpo, pap, Qap, pvp]
+IC = zeros(14, 1);
+IC(1) = patient_data.Vlv_dias;      % Vlv - dari data pasien
+IC(2) = 50;                          % Vla - estimasi atrium kiri
+IC(3) = patient_data.Vrv_dias;      % Vrv - dari data pasien
+IC(4) = 60;                          % Vra - estimasi atrium kanan
+IC(5) = patient_data.Pao_dias;      % pao - dari data pasien
+IC(6) = 0;                           % Qao - aliran aorta (start dari 0)
+IC(7) = 80;                          % pas - tekanan arteri sistemik (estimasi)
+IC(8) = 0;                           % Qas - aliran arteri sistemik (start dari 0)
+IC(9) = 5;                           % pvs - tekanan vena sistemik (estimasi)
+IC(10) = 15;                         % ppo - tekanan arteri pulmonal (estimasi)
+IC(11) = 0;                          % Qpo - aliran pulmonal (start dari 0)
+IC(12) = 10;                         % pap - tekanan arteriol pulmonal (estimasi)
+IC(13) = 0;                          % Qap - aliran arteriol pulmonal (start dari 0)
+IC(14) = 8;                          % pvp - tekanan vena pulmonal (estimasi)
 
-% Solve ODE
-options = odeset('RelTol', 1e-3, 'AbsTol', 1e-6, 'MaxStep', 1e-3);
+% Solve ODE dengan toleransi yang sama seperti saat optimisasi
+options = odeset('RelTol', 1e-2, 'AbsTol', 1e-4, 'MaxStep', 1e-3);
 [t, y] = ode15s(@(t,y) cardiovascular_model(t, y, full_params), tspan, IC, options);
 
 fprintf('   Simulasi selesai!\n');
