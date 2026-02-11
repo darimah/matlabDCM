@@ -1,0 +1,959 @@
+ PDF To Markdown Converter
+Debug View
+Result View
+Mathematical modeling of cardiac function to evaluate clinical cases in adults and children
+RESEARCHARTICLE
+Mathematicalmodelingofcardiacfunctionto
+evaluateclinicalcasesinadultsandchildren
+SelimBozkurtID*
+Instituteof CardiovascularScience,UniversityCollegeLondon,London,UnitedKingdom
+*s.bozkurt@ucl.ac.uk
+Abstract
+Time-varyingelastancemodelscansimulateonlythepressureandvolumesignalsin the
+heartchamberswhilethediagnosisof clinicalcasesandevaluationof differenttreatment
+techniquesrequiremoreinformation.In thisstudy,anextendedmodelutilizingthegeomet-
+ricdimensionsof theheartchamberswasdevelopedto describethecardiacfunction.The
+newcardiacmodelwasevaluatedbysimulatinga healthyanddilatedcardiomyopathy
+(DCM)conditionforadultsandchildren.Theleftventricularejectionfraction,end-diastolic
+volume,end-diastolicdiameteranddiastolicsphericityindexwere53.60%, 125 mL,5.08cm
+and1.82in thehealthyadultcardiovascularsystemmodeland23.70%, 173 mL,6.60cm
+and1.40in theDCMadultcardiovascularsystemmodel.In thehealthychildcardiovascular
+systemmodel,theleftventricularejectionfraction,end-diastolicvolume,end-diastolicdiam-
+eteranddiastolicsphericityindexwere59.70%, 92 mL,4.10cmand2.26respectivelyand
+30.70%, 125 mL,4.94cmand1.87in theDCMchildcardiovascularsystemmodel.The
+developedcardiovascularsystemmodelsimulatesthehemodynamic variablesandclinical
+diagnosticindicatorswithinthephysiologicalrangeforhealthyandDCMconditionsproving
+thefeasibilityof thisnewmodelto evaluateclinicalcasesin adultsandchildren.
+Introduction
+Numericalmodelingofcardiacphysiologyplaysanimportantroletoevaluateclinicalsce-
+nariosandoutcomesofdifferenttreatmenttechniquesbeforeexperimentalorclinicalappli-
+cations.Nonetheless,theinformationobtainedfroma numericalsimulationdependsonthe
+modeledrelationsintheutilizedmodel.Forinstance,time-varyingelastancemodels
+describethepressure-volumerelationsintheheartchambersusinganelastancefunction
+whichchangeswithrespecttotimeovera cardiaccycle[1].Thetime-varyingelastancemod-
+elshavebeenusedfordifferentclinicalscenariossuchasevaluatingheartfailure[2],leftven-
+tricularassistdevicesupport[3]orsimulatingtheinteractionbetweenthecardiovascular
+andrespiratorysystems[4,5].Althoughtime-varyingelastancemodelsarewidelyusedto
+modelthecardiacfunction,theysimulateonlythebloodpressureandvolumeinheart
+chambers.
+Moredetailednumericalmodelssuchassinglefibercontractionmodelsdescribethecar-
+diacfunctionbysimulatingthecontractionofa sarcomereovera cardiaccycle[6].Thesingle
+a
+a
+a
+a
+a
+
+OPENACCESS
+Citation: BozkurtS (2019)Mathematical modeling
+of cardiacfunctionto evaluateclinicalcasesin
+adultsand children.PLoSONE 14(10):e0224663.
+https://doi.org/10.1371/journal.pone.
+
+Editor: ElenaG. Tolkacheva,University of
+Minnesota, UNITEDSTATES
+
+Received: January8, 2019
+
+Accepted: October18, 2019
+
+Published: October31, 2019
+
+Copyright: © 2019 SelimBozkurt.This is an open
+accessarticledistributedunderthe termsof the
+CreativeCommonsAttributionLicense,which
+permitsunrestricted use, distribution, and
+reproductionin any medium,providedthe original
+authorand sourceare credited.
+
+DataAvailability Statement: All relevantdata are
+withinthe manuscriptand its Supporting
+Informationfiles.
+
+Funding: The authorsreceivedno specificfunding
+for this work.
+
+Competinginterests: The authorshave declared
+that no competinginterestsexist.
+
+fibercontractionmodelsallowsimulatingthefibertensionina heartchamber,inadditionto
+thebloodpressureandvolume[7].Thesinglefibercontractionmodelshavealsobeenusedto
+simulatephysiologicalandclinicalscenariossuchastheinfluenceofintra-myocardialpressure
+onthecoronaryarterialbloodflowrate[8],simulationoffetalheartratevariability[9]oreval-
+uationofrotarybloodpumpsupport[10]etc.Althoughthesemodelsaredrivenbythefiber
+contractionandprovidemoreinformationaboutthecardiacphysiology,theyalsoremain
+insufficienttosimulatedifferentmechanismsoccurringateachlevelofcardiaccontraction
+anddonotprovideinformationaboutclinicalindicatorssuchasheartchamberdimensions
+forthephysiologicalcases.
+Multi-scalemodelsofthecardiacdynamicssimulatingthephysiologicalprocessesatthe
+cellular,proteinandorganlevelsalsoweredevelopedandusedtounderstandthepathophysi-
+ologyofheartfailure[11].However,increasingthecomplexityofa numericalmodelmaynot
+improvetheoutcomeofa simulation.Asshownin[12]relativelysimplemodelsdescribing
+thecardiacfunction,simulatethephysiologicalandclinicalcasessuchasheartfailureand
+mechanicalcirculatorysupportmoreaccuratelywithrespecttothemultiscalemodelsbecause
+thesmalldiscrepanciesbetweentherealphysiologyandthenumericalmodelineachscale
+causelargedeviationsattheorganlevel.Moreover,lumpedparametermodelingmostlywas
+usedtosimulatetheadultcardiovascularsystem.Numericalsimulationofcardiacfunctionin
+childrenremainstoworkfurthertoevaluatedifferentphysiologicalscenariosasonlya small
+numberofstudiesfocusonpediatriccases[13].A detailedreviewoflumpedparametermodels
+is givenin[14].
+Thesimilaritiesanddifferencesbetweenchildrenandadultphysiologieshavebeensubject
+todevelopmentaltheories[15].Hemodynamicparametersandsizeoftheheartinchildren
+reachessimilarvaluesoftheadultcardiovascularsystemintime.Therefore,a numerical
+modelcapableofsimulatingthedimensionsoftheheartchambersandrelatedparameters
+usedtodiagnoseclinicalcasesanddescribethecardiacfunctionnotonlyforadultsbutalso
+forchildrencanbeutilizedtoevaluateclinicalcasesandeffectsofdifferenttreatmentinpedi-
+atricpatientsatdifferentages.
+Theaimofthisstudyis todevelopa lumpedparametermodeldescribingthecardiacfunc-
+tionandcirculatorysystemandsimulatingthediagnosticcriteriafortheclinicalcases,there-
+fore,canbeusedtoevaluatephysiologicalscenariosandtreatmenttechniquesfor
+cardiovascularsystemdiseasesinadultsandchildrenatdifferentages.
+
+Methods
+Themathematicalmodelproposedinthisstudydescribestherelationshipbetweenthepres-
+sureandradiusintheheartchambers.Leftventriculargeometryresemblesa truncatedellip-
+soid[16],therefore,anellipsoidalgeometrywasusedforthemodelingoftheleftventricle.The
+leftventricularvolume(Vlv) wasexpressedusingtheleftventricularradius(rlv), longaxis
+length(llv) andanadditionalcoefficient(Klv) whichallowstoincludeeffectsofthecontraction
+inthelongaxisandscalestheproportionbetweentheleftventricularradiusandvolumeover
+a cardiaccycle.
+
+Vlv¼ð^4 =^3 ÞpKlvr
+(^2) lvllv
+2
+ð 1 Þ
+Ventricularlongaxislength(llv) assumedtobeconstantovera cardiaccycle,so,theleftven-
+tricularradius(rlv) andthechangeoftheleftventricularradiuswithrespecttotime(drlv/dt)
+
+canbedescribedasgivenbelow.
+
+rlv¼
+6 Vlv
+4 pKlvllv
+� � 1 = 2
+ð 2 Þ
+drlv
+dt
+¼^3 ðdVlv = dtÞ
+4 pKlvllv
+6 Vlv
+4 pKlvllv
+� � 1 = 2
+ð 3 Þ
+Changeoftheleftventricularvolumewithrespecttotime(dVlv/dt)canalsobedescribedas
+thedifferencebetweenthemitralandaorticvalveflowrates(Qmv,Qav).
+
+dVlv
+dt
+¼Qmv Qav ð 4 Þ
+Changeoftheleftventricularradiuswithrespecttotime(drlv/dt)becomesasgivenbelow.
+drlv
+dt
+¼
+3 ðQmv QavÞ
+4 pKlvllv
+6 Vlv
+4 pKlvllv
+� � 1 = 2
+ð 5 Þ
+Theleftventricularpressureduringtheactivecontractionandtherelaxationphases(plv,a)
+is describedusinganactivationfunction(fact,lv), end-systolicelastance(Ees,lv), theleftventricu-
+larradius(rlv) andleftventricularradiusatzeropressurevolume(rlv, 0 ).
+
+plv ; aðtÞ¼Ees ; lv
+4
+6 pKllvðr
+2
+lv r
+2
+lv ; 0 Þ
+� �
+fact ; lvðtÞ ð 6 Þ
+Here,theexpressioninthesquarebracketsshowsthedifferencebetweentheleftventricular
+volume(Vlv) asdescribedintheEq1 andtheleftventricularzeropressure-volume(Vlv, 0 ). The
+activationfunction(fact,lv) drivingtheleftventricularcontractionis adaptedfrom[17]and
+givenbelow.
+
+fact ; lvðtÞ¼
+1  cosððt = T 1 ÞpÞ
+2
+0 �t < T 1
+1 þcosððt T 1 Þ = ðT 2  T 1 ÞpÞ
+2
+T 1 �t < T 2
+0 T 2 �t < T
+ð 7 Þ
+8
+>>>
+>><
+>>>
+>>:
+Here,tis thetimeovera cardiaccycle,T 1 ,T 2 ,andTarethetimesattheendofsystole,endof
+theventricularrelaxationanddurationofthecardiaccycle.
+Therelationshipbetweentheleftventricularpressureandtheradiusforthepassiveleftven-
+tricularcontractionis adaptedfrom[13]usingtheEq1 astheleftventricularvolume.
+
+plv ; pðtÞ¼AeB
+ð^46 pKðrlvðtÞÞ^2 llvÞ
+ 1 ð 8 Þ
+Theleftventricularpressure(plv) signalovera cardiaccycleis obtainedusingactiveandpas-
+sivecomponentsoftheleftventricularpressure(plv,a,plv,p).
+
+plv¼plv ; aþplv ; p ð 9 Þ
+Rightventriclehasa morecomplexshapewithrespecttoleftventricleandresemblesa cres-
+centiccross-sectionanda trianglefromthesideview[18].Thecrescenticcross-sectionofthe
+rightventricleis moreextensivewithrespecttothecircularcross-sectionoftheleftventricle,
+andthetriangularsideviewofrightventricleseemslikeanellipsoidwhichhasa largervolume
+occupiedbyleftventricle[19].Therefore,anellipsoidalvolumetrimmedatthelongaxisand
+
+thebasalaxisofa rightventricleprovidesa quitegoodapproximationtomodeltherightven-
+tricularvolume(Vrv).
+
+Vrv¼
+ð 4 = 3 ÞpKrvr^2 rvlrv
+4
+ð 10 Þ
+Intheequationabove,Krv,lrvandrrvarethescalingcoefficient,therightventricularlength
+frombase-to-apexandrightventricularradius.Therightventricularradius(rrv) andthe
+changeoftherightventricularradiuswithrespecttotime(drrv/dt)aredescribedasgiven
+below.
+
+rrv¼
+3 Vrv
+pKrvlrv
+� � 1 = 2
+ð 11 Þ
+drrv
+dt
+¼
+3 ðQtv QpvÞ
+2 pKrvlrv
+3 Vrv
+pKrvlrv
+� � 1 = 2
+ð 12 Þ
+Intheequationsabove,QtvandQpvaretheflowratesthroughthetricuspidandpulmonary
+valves.Therightventricularactiveandpassivepressurecomponents(prv,a,prv,p) aremodeled
+asgivenbelow.Therightventricularpressureis obtainedusingactiveandpassivepressure
+components.
+
+prv ; aðtÞ¼Ees ; rv
+1
+3 pKlrvðr
+2
+rv r
+2
+rv ; 0 Þ
+� �
+fact ; rvðtÞ ð 13 Þ
+prv ; pðtÞ¼AeB
+ð^13 pKðrrvðtÞÞ^2 lrvÞ
+ 1 ð 14 Þ
+Theleftandrightatrialgeometriesweremodeledusinga similarmodeltotheleftventricu-
+largeometry.Therefore,thesamerelationsfortheleftandrightatrialvolumesandradiuses
+areusedasintheleftventriclemodelwithdifferentparametervalues.Theatrialpressure-
+radiusrelationshipis modeledadoptinga time-varyingelastancepressure-volumeand
+expressingtheatrialvolumeasa truncatedellipsoidalshape.
+
+plaðtÞ¼ElaðtÞ
+4
+6
+pKlallaðrla^2  r^2 la ; 0 Þ
+� �
+ð 15 Þ
+Here,plais theleftatrialpressure,Kla,lla,rlaandrla, 0 aretheleftatrialscalingcoefficient,
+length,radiusandradiusatzeropressure.Elais theleftatrialelastancefunctionandis
+describedusingtheleftatrialactivationfunction(fact,la) asgivenbelow.
+
+ElaðtÞ¼Emin ; laþ 0 : 5 ðEmax ; la Emin ; laÞfact : laðt DÞ ð 16 Þ
+fact ; laðtÞ¼
+0 0 �t < Ta
+1  cos 2 p
+t Ta
+T Ta
+� �
+Ta�t < T
+ð 17 Þ
+8
+><
+>:
+Therightatrialpressure-radiusrelationsaredescribedinthesamewayastheleftatrial
+pressure-radiusrelations.Theparametervaluesusedintheadultatriaandventriclemodels
+aregiveninTable1.
+Thelongitudinallengthsoftheleftandrightventriclesandatriawereselectedconsidering
+theanatomicalrangesgivenin[20–23]fortheadultcardiovascularsystemmodel.Kvalues
+wereadjustedtosimulatetheend-systolicandend-diastolicheartchamberradiuses(r)within
+
+thereferencerangeforthephysiologicalheartchamberpressuresandvolumes.Thezeropres-
+surevolumevaluesoftheheartchambers(V 0 ) reportedintheliterature[17,24]usedinthe
+healthyadultcardiovascularsystemmodel.Theleftandrightventricularend-systolicelastance
+values(Ees) wereselectedas2.5mmHg/mLand1 mmHg/mLsimilartothereportedvaluesin
+[25,26].Thecoefficientsinthepassivecomponentoftheventricularpressuresignals(A,B)
+were1 and0.02[13].Theparametersdescribingtheonsetoftheventricularandatrialcontrac-
+tionandrelaxationtimes(T 1 ,T 2 ,Ta,T,D)wereselectedconsideringthedurationofthecar-
+diaccyclephases[27].
+Thecirculationloopwasdescribedusinga lumpedparametermodelwhichincludeselectri-
+calanaloguesforthebloodvesselresistance,complianceandinertance.Theheartvalveswere
+modeledasidealdiodesallowingone-waybloodflow.Thetime-varyinggeometricmodelsof
+theheartchambersandelectric-analogueofthecirculatorylooparegiveninFig1.Theresis-
+tance,complianceandinertancevaluesinthecirculatorysystemwereadjustedmanually
+withinthereportedphysiologicalrangeforthehealthyadultcardiovascularsystem[28–30].
+TheparametervaluesusedintheadultcirculatorylooparegiveninTable2.
+Thehealthychildcardiovascularsystemmodelwassimulatedbymodifyingtheparameters
+usedinthehealthyadultcardiovascularsystemmodel.Themodelparameterswereadjustedto
+simulatechildrenwith1 m^2 bodysurfaceareaand8–12ageinterval[31].Thesystolicelastance
+valuesinthechildcardiovascularsystemmodelwereselected,consideringthedatagivenin
+[32].Theventricularlongaxislengthis takenfrom[33]forthesimulatedageandbodysurface
+area.Thezeropressurevolumesoftheheartchambers(V 0 ) weredecreasedinthechildcardio-
+vascularsystemmodel[34].Thecompliancevaluesofthebloodvessels(C)werereducedin
+thechildrenasthevesselcomplianceincreaseswiththeincreasingbodysurfaceareaandage
+[35].Theresistancesofthebloodvessels(R)arekeptthesameinthechildcardiovascularsys-
+temmodelasintheadultcardiovascularsystemmodelbecausethedifferencebetweenthe
+adultvascularresistancesandchildrenvascularresistancesfortheconsideredagesis notvery
+highandthevascularresistancesvaryina veryhighvariationrangeinchildren[36].Duration
+ofa cardiaccycle(T)wasdecreasedto0.75bpminthechildcardiovascularsystemmodelas
+theheartrateincreaseswiththedecreasingage[36].Thetotalbloodvolume(Vtot) is signifi-
+cantlylessinchildrenwithrelativelysmallbodysurfaceareawithrespecttotheadultcardio-
+vascularsystem[37].Thetotalbloodvolumeinthechildrenhaving1 m^2 bodysurfaceareais
+Table1.Theparametervaluesusedintheadultatriaandventriclemodels,theparametervaluesusedinthesimulation ofDCMaregiveninthebrackets.
+
+LeftVentricle RightVentricle LeftAtrium RightAtrium
+l [cm] 8 8 5.5 5.
+K 1.15(0.95) 1.75 1.20 1.
+V 0 [mL] 15 (25) 40 5 5
+Ees[mmHg/mL] 2.5(0.9) 1 - -
+A 1 (0.65) 1 - -
+B 0.02 0.02 - -
+Emax[mmHg/mL] - - 0.3 0.
+Emin[mmHg/mL] - - 0.2 0.
+T 1 [s] 0.33�T 0.33�T - -
+T 2 [s] 0.45�T 0.45�T - -
+Ta[s] - - 0.8�T 0.8�T
+T [s] 0.8 0.8 0.8 0.
+D[s] - - 0.04 0.
+
+https://doi.org/10.1371/journal.pone.0224663.t
+
+Fig1.Thetime-varyinggeometricmodelsoftheheartchambersandelectric-analogueofthecardiovascularsystem. R,LandCdenoteresistance, inertanceand
+compliance,panddenotepressure,MV,AV,TVandPVaremitral,aortic,tricuspidandpulmonaryvalves,randlareradiusandlength,la,lv,raandrvdenoteleft
+atriumandventricleandrightatriumandventricle,ao,as,vsdenoteaorta,systemicarteriolesandsystemicveins,po,ap,vppulmonaryarteries,pulmonaryarterioles
+andpulmonaryveins.
+
+https://doi.org/10.1371/journal.pone.0224663.g0 01
+
+Table2.Theparametervaluesusedintheadultcirculatoryloop,theparametervaluesusedinthesimulation of
+DCMareshowninthebrackets.
+R[mmHgs/mL] L [mmHgs^2 /mL] C[mL/mmHg]
+Aorta 0.05 1e-5 0.
+SystemicArterioles 0.95(1.6) 1e-5 1.
+SystemicVeins 0.05 - 30
+Pulmonary Arteries 0.01 1e-5 5
+Pulmonary Arterioles 0.15 1e-5 0.
+Pulmonary Veins 0.05 - 30
+MitralValve 0.002 - -
+AorticValve 0.002 - -
+TricuspidValve 0.001 - -
+Pulmonary Valve 0.001 - -
+https://doi.org/10.1371/journal.pone.0224663.t00 2
+around 2000 mL[37].Theparametervaluesusedintheheartchambersandcirculatoryloop
+ofthechildcardiovascularsystemmodelaregiveninTables3 and4.
+DCMis a conditionwhichleftventricleis dilatedandweakenedduetocontractiledysfunc-
+tion[38].Diastolicdysfunctionmayalsocoexistinpatientswithejectionfractionlessthan 45
+percent[39].Thesystemicarterialpressureis increasedtomaintaintheperfusionpressurein
+DCMpatients.ThecontractiledysfunctionwassimulatedintheDCMleftventriclereducing
+end-systolicelastanceoftheleftventricle(Ees,lv) inbothadultandchildcardiovascularsystem
+models.Thediastolicdysfunctionintheleftventriclewassimulatedbydecreasingthecoeffi-
+cient(A)usedintheEq8.Thesystemicarteriolarresistancewasincreasedto1.6mmHg/mL/s
+from0.95mmHg/mL/stosimulatetheincreasedresistanceinthesystemiccirculationinboth
+adultandchildcardiovascularsystemmodels.Thescalingcoefficient(Klv) wasalsoincreased
+tosimulatetheremodelingintheleftventricularwallandtheenlargementoftheleftventricu-
+larcavity.Themodifiedparametersintheleftventricleandcirculatorysystemforbothadult
+andchildcardiovascularsystemmodelsaregivenintheTables1–4inthebrackets.
+Fractionalshortening(fs)andsphericityindex(si)wereusedtoevaluatehealthyandDCM
+conditionsintheadultandchildcardiovascularsystemmodelsalongwiththeejection
+Table3.Theparametervaluesusedinthechildatriaandventriclemodels;theparametervaluesusedinthesimulationofDCMareshowninthebrackets.
+
+LeftVentricle RightVentricle LeftAtrium RightAtrium
+l [cm] 7 7 4.5 4.
+K 1.50(1.40) 3.25 2.50 2.
+V 0 [mL] 10 (17) 25 3 3
+Ees[mmHg/mL] 3.5(1.3) 1.4 - -
+A 1 (0.85) 1 - -
+B 0.02 0.02 - -
+Emax[mmHg/mL] - - 0.4 0.
+Emin[mmHg/mL] - - 0.2 0.
+T 1 [s] 0.33�T 0.33�T - -
+T 2 [s] 0.45�T 0.45�T - -
+Ta[s] - - 0.8�T 0.8�T
+T [s] 0.75 0.75 0.75 0.
+D[s] - - 0.0375 0.
+
+https://doi.org/10.1371/journal.pone.0224663.t
+
+Table4.Theparametervaluesusedinthechildcirculatoryloop,theparametervaluesusedinthesimulationof
+DCMareshowninthebrackets.
+R[mmHgs/mL] L [mmHgs^2 /mL] C[mL/mmHg]
+Aorta 0.05 1e-5 0.
+SystemicArterioles 0.95(1.4) 1e-5 1.
+SystemicVeins 0.05 - 19.
+Pulmonary Arteries 0.01 1e-5 3.
+Pulmonary Arterioles 0.15 1e-5 0.
+Pulmonary Veins 0.05 - 19.
+MitralValve 0.002 - -
+AorticValve 0.002 - -
+TricuspidValve 0.001 - -
+Pulmonary Valve 0.001 - -
+https://doi.org/10.1371/journal.pone.0224663.t00 4
+fraction,volumesanddimensionsoftheheartchambers.
+
+fs¼
+ðEDD ESDÞ
+EDD
+� 100 ð 18 Þ
+si¼
+l
+Dmid
+ð 19 Þ
+Here,EDDandESDarethediametersattheendofdiastoleandsystole,lis thelengthofa
+heartchamberandDmidis thediameterofthemid-cavityoftheheartchambers.Therightven-
+tricularbasaldiameterwasassumedtobethesameastherightventricularradiusbecauseof
+theanatomicalgeometryofrightventricle.ThesimulationswereperformedusingMatlab
+SimulinkR2017a.Thesetofequationswassolvedusingtheode15ssolver.Themaximumstep
+sizewas1e-3s, relativetolerancewassetto1e-3.
+
+Results
+First,thesimulationswereperformedforthehealthyadultandchildcardiovascularsystem
+models.Theventricular,atrialandaorticpressures,theventricularandatrialvolumesand
+diametersinthehealthyadultandchildcardiovascularsystemmodelsaregiveninFig2.
+Theleftventricularandaorticsystolicpressuresinthehealthyadultcardiovascularsystem
+werearound 120 mmHg.Inbothadultandchildcardiovascularsystemmodels,therightven-
+tricularvolumesremainhigherwithrespecttotheleftventricularvolumesovera cardiac
+cycle.Therightatrialvolumesarehigherwithrespecttotheleftatrialvolumesovera cardiac
+cycleinbothmodels.Similarly,therightatrialdiametersarehigheraswellwithrespecttothe
+leftatrialdiametersovera cardiaccycle.Therightventricularbasaldiameterremainslower
+withrespecttotheleftventricularbasaldiametersimilartothenormalphysiologicalcondi-
+tionsintheadultsandchildren.Theventricularandatrialpressures,aorticpressure,ventricu-
+larandatrialvolumesandthediametersintheDCMadultandchildcardiovascularsystem
+modelsaregiveninFig3.
+TheleftventricularandaorticsystolicpressuresdecreasedintheDCMcasesfortheadult
+andchildcardiovascularsystemmodels.Theleftventricularvolumeincreasedsignificantly
+simulatingtheenlargementbecauseoftheimpairedcontractilityintheDCMleftventricles.
+LeftatrialvolumesinDCMmodelsincreasedwithrespecttotheleftatrialvolumesinthe
+healthycardiovascularsystemmodels.Theleftventricularandatrialdiametersincreasedas
+wellwiththeincreasedvolumesintheleftatriaandventriclesoftheadultandchildDCMcar-
+diovascularsystemmodels.Thepressure-volumeloopsforthehealthyandDCMmodelsare
+giveninFig4.
+Theleftventricularpressure-volumeloopshiftedtotherightandbecamesmallerinthecar-
+diovascularsystemmodelssimulatingDCMforbothadultsandchildren.Thepressure-vol-
+umeareasoftheleftandrightventriclesaresmallerinthecardiovascularsystemmodels
+simulatingtheDCMconditionwithrespecttothecardiovascularsystemmodelssimulating
+thehealthycondition.Additionally,thepressure-volumeloopareais smallerinthechildcar-
+diovascularsystemmodelwithrespecttotheadultcardiovascularsystemmodel.Theend-sys-
+tolicandend-diastolicvolumes,diametersandpressuresintheheartchambersfortheadult
+andchildcardiovascularsystemswiththehealthyandDCMconditionsaregiveninFig5,the
+maximalandminimaldimensionsoftheheartchambersandthehemodynamicparameters
+usedtoevaluatethehealthyandDCMconditionsaregiveninTable5.
+ThehemodynamicparametersshowninFig5 andTable5 werewithinthenormalphysio-
+logicalrangesforthehealthyandDCMconditionintheadultandchildcardiovascularsystem
+
+models.Theleftventricularend-diastolicandend-systolicdiametersincreasedintheDCM
+cardiovascularsystemmodelswithrespecttothehealthycardiovascularsystemmodelsforan
+adultanda child.LeftatrialmaximalandminimaldiametersincreasedintheDCMcardiovas-
+cularsystemmodelsaswell.Rightventricularend-diastolicdiametersreducedwhileend-sys-
+tolicdiametersintherightventricledonotchangesignificantlyfortheDCMadultandchild
+cardiovascularsystemmodels.Rightatrialdiametersreducedattheend-systoleandend-dias-
+toleintheDCMadultandchildcardiovascularsystemmodels.Thecardiacoutputreduced
+significantlyintheDCMconditionforbothadultchildcardiovascularsystemmodelsaswell
+astheleftventricularstrokevolumeandejectionfraction.Fractionalshortening,diastolicand
+systolicsphericityindicesandaorticmeanpressuredecreasedintheDCMconditionsaswell.
+ThemeanpulmonaryarterialpressureremainedatsimilarlevelsintheDCMandhealthycon-
+ditionsforbothadultandchildcardiovascularsystemmodels.
+Discussion
+Time-varyingelastancemodelsrevealonlytherelationshipbetweenthepressureandvolume
+signalsintheventriclesbylumpingallthecontractiondynamicsintheelastancetermovera
+Fig2. a)Thepressuresignalsintheleftventricle,aortaandleftatrium,b)thepressuresignalsintherightventricle,pulmonaryarteryandrightatrium,c)thevolume
+signalsintheleftandrightventricles andatria,d)theventricularandatrialdiametersforthehealthyadultcardiovascularsystem.e)Thepressuresignalsintheleft
+ventricle, aortaandleftatrium,f) thepressuresignalsintherightventricle,pulmonaryarteryandrightatrium,g)thevolumesignalsintheleftandrightventriclesand
+atria,h)theventricularandatrialdiametersforthehealthychildcardiovascularsystem.
+
+https://doi.org/10.1371/journal.pone.0224663.g0 02
+
+cardiaccycle.Thesemodelshavebeenwidelyusedtoevaluateclinicaldevicesorclinicalsce-
+nariosnumericallydespitetheirlimitedcapability[30,40].Thecardiovascularsystemmodel
+proposedinthisstudydescribestherelationshipbetweenpressureanddimensionsofthe
+heartchambers.Also,systolicelastanceswereusedtodescribepressuresintheventriclemod-
+els.Therefore,theproposednumericalmodelextendsthecapabilityoftheexistingrelatively
+simpletime-varyingelastancemodelswithoutlosinginformation.Singlefibercontraction
+modelsaredrivenbycontractionofmusclefibers,andtheysimulatelengthandtensiononthe
+fibers,alongwiththepressureandvolumerelationinheartchambers.Althoughsinglefiber
+contractionmodelshavenotbeenusedaswidelyasthetime-varyingelastancemodels,they
+havebeenutilizedtoevaluatemedicaldevicesnumerically[7,41].Thesemodelsalsohavelim-
+itedcapabilitiesinsimulatingindicatorsforclinicalscenariosasejectionfractionis theonly
+clinicalindicatorcanbeobtained.Therefore,theircapabilityalsoremainslimitedwithrespect
+tothedevelopedcardiovascularsystemmodelinthisstudy.Multiscalemodelssimulatingthe
+actionpotentialsandCalciumkineticsprovidedetailedinformationaboutthecardiacdynam-
+icsatcellularandproteinlevelsfora healthyandDCMheart[11].However,attheorganlevel
+ejectionfractionis theonlyparameterthatsuchmodelscanprovide.Moreover,calcium
+Fig3. a)Thepressuresignalsintheleftventricle,aortaandleftatrium,b)thepressuresignalsintherightventricle,pulmonaryarteryandrightatrium,c)thevolume
+signalsintheleftandrightventricles andatria,d)theventricularandatrialdiametersfortheDCMadultcardiovascularsystem.e)Thepressuresignalsintheleft
+ventricle, aortaandleftatrium,f) thepressuresignalsintherightventricle,pulmonaryarteryandrightatrium,g)thevolumesignalsintheleftandrightventriclesand
+atria,h)theventricularandatrialdiametersfortheDCMchildcardiovascularsystem.
+
+https://doi.org/10.1371/journal.pone.0224663.g0 03
+
+dynamicsinchildrenatearlyagesarequitedifferent[42],therefore,substantialmodifications
+intheequationsmayberequiredtosimulateheartfailurewhenthesemodelsareusedtosimu-
+latechildrencardiovascularsystem.Thedevelopedcardiovascularsystemmodelsimulatescar-
+diacfunctionatorganlevelandallowssimulationofadditionalclinicalindicatorssuchas
+sphericityindexandfractionalshortening,whichareusedinthediagnosisofheartfailure.
+Moreover,thepresentedcardiovascularsystemmodelshowsthatchildrenhavea relatively
+longlongitudinalaxiswithrespecttotheminoraxisintheirleftventricle.
+Scalingcoefficient(K)whichincludetheeffectsofthelongitudinalcontractionandirregu-
+laritiesintheheartchambergeometriesandallowsimulationofthephysiologicalheartcham-
+berdiametersignalswasusedintheproposedcardiovascularsystemmodels.Thescaling
+coefficients(K)alsorelatethediameterandvolumesignalsintheheartchambers.Modifying
+theseparametersfora heartchamberdoesnotinfluencethevolumeandpressuresignalswhile
+thediameterchanges.A highervalueofthescalingcoefficients(K)showsa strongerlongitudi-
+nalcontractionanda morecomplexgeometryfortheheartchambers.Rightventriclehasthe
+Fig4. a)Thepressure-volumeloopsignalsintheleftandrightventricles(lv,rv)forthehealthyadultcardiovascularsystemmodel,b)thepressure-volumeloop
+signalsintheleftandrightventricles(lv,rv)forthehealthychildcardiovascularsystemmodel,c)thepressure-volumeloopsignalsintheleftandrightventricles(lv,
+rv)fortheDCMadultcardiovascularsystemmodel,d)thepressure-volumeloopsignalsintheleftandrightventricles(lv,rv)fortheDCMchildcardiovascular
+systemmodel.
+
+https://doi.org/10.1371/journal.pone.0224663.g
+
+mostcomplexgeometryamongalltheheartchambers,andrightventricularlongitudinalcon-
+tractioncontributestotheejectionofthebloodthroughthepulmonaryvalvesignificantly
+[43].Therefore,highervaluesfortherightventricularscalingconstant(Krv) withrespectto
+thescalingconstantsinotherheartchamberswereusedintheadultandchildcardiovascular
+systemmodels.Also,higherscalingconstantvaluesfortheheartchambersinthechildcardio-
+vascularsystemmodelwithrespecttotheadultcardiovascularsystemshowstrongerlongitu-
+dinalcontractionsinchildren.IntheadultandchildDCMmodels,thescalingcoefficients
+(Klv) weremodifiedaswellasthesystolicelastances(Esys,lv) andzeropressure-volumevalues
+(Vlv, 0 ) fortheleftventriclebecauseoftheremodelinginthemyocardialtissuecausinginan
+increaseintheleftventricularvolumeanddiameter.Themodificationsinthesystolicela-
+stance(Esys,lv) andzeropressure-volume(Vlv, 0 ) weredonetosimulatetheimpairedcontractile
+Fig5. a)Theleftandrightventricularend-diastolicvolumes,b)Theleftandrightventricularend-systolicvolumes,c)Themaximalleftandrightatrialvolumes,
+d)Theminimalleftandrightatrialvolumes,e)Theleftandrightventricularend-diastolicdiameters,f) Theleftandrightventricularend-systolic diameters,g)
+Themaximalleftandrightatrialdiameters, h)Theminimalleftandrightatrialdiameters, i) Theleftventricularend-diastolicpressure, j) Theleftventricular
+systolicpressure,k)Therightventricularend-diastolicpressure,l) Therightventricularsystolicpressure.Hemodynamic parametersintheleftheartoftheadult
+circulationmodel(●),lefttheheartofthechildcirculationmodel(■),therightheartoftheadultcirculationmodel(♦),therightheartofthechildcirculation
+model(▲)forthehealthy(H)andDCMconditions.
+
+https://doi.org/10.1371/journal.pone.0224663.g
+
+behaviorandenlargedcavityvolumeintheDCMleftventricles.Thescalingconstant(Klv) was
+modifiedtosimulatethechangesinthecontractilestrengthofthelongitudinalcontractions.
+Ventricularlongaxislengthinthemodelwasassumedtobeconstantbecausetheventricu-
+larlongaxissignalovera cardiaccycleis similarandseemstobeproportionaltotheventricu-
+larvolumesignal[44].A similarchangeintheventriculardiameteris alsoseen.Takinginto
+accountbothsignalsincreasesthecomplexityofthemodel.Scalingcoefficients(K)foreach
+heartchamberswereusedtoexpresstheeffectsoflongitudinalcontractionandirregularities
+intheheartchambergeometriesandreducethecomplexityofthemodel.
+Accuracyoftherightventricularvolumeestimationfrom2Dechocardiographyrequires
+assumptionsonthegeometryofrightventricle[45].Trimmedellipsoidalgeometriessimilarto
+thepresentedrightventricularmodelinthisstudytoestimaterightventricularvolumehave
+alreadybeenusedin2Dechocardiography[46,47].Empiricalcoefficientsexpressingtheirreg-
+ularitiesinrightventricularshapearealsousedin2Dechocardiographicarea-lengthmethods
+estimatingrightventricularvolume[45].Usinga trimmedellipsoidalgeometryandanaddi-
+tionalcoefficient(Krv) asin2Dechocardiographiccardiacimagingdescribestherightventric-
+ularvolumesignalsforthehealthyandDCMmodelsaccurately.
+Thepressureandvolumesignalssimulatedintheadultcardiovascularsystemmodelfor
+thehealthyconditionremainwithinthephysiologicalrange[27,48–51].Thesimulatedmaxi-
+malandminimalheartchamberdimensionsinthehealthyadultcardiovascularsystemmodel
+arealsowithinthehealthyphysiologicalrangesandcorrespondstothereportedaveragevalues
+fortheadults[52–58].Asthedilatationoccursina DCMleftventricle,theleftventricularvol-
+umeincreasessignificantly,internalventriculardiameteratthediastoleandsystoleincrease
+around6.5cmand5.5cmandejectionfractionmayreducebelow 30 percentinadults
+[39,59,60].ThesimulationresultswereinthereportedphysiologicalrangefortheadultDCM
+cardiovascularsystemmodel.Leftventriculargeometryassumesa moresphericalshapewith
+Table5.ThehemodynamicparametersusedtoevaluatethehealthyandDCMconditionsinthenumerical model. LVEDD,LVESD,RVEDDandRVESDareleft
+andrightventriculardiametersattheendofdiastoleandsystole,LADmax, LADmin, RADmax, RADminaremaximalandminimaldiametersintheleftandrightatria,CO
+andLVSVrepresentcardiacoutputandleftventricularstrokevolume,LVEFandRVEFrepresentleftandrightventricularejectionfractions,fs,DsiandSsiarefractional
+shorteningintheleftventriculardiameter,leftventriculardiastolicandsystolicsphericityindices,MAPandMPAParethemeanarterialandmeanpulmonaryarterial
+pressures.
+
+HealthyAdultCVS DCMAdultCVS HealthyChildCVS DCMChildCVS
+LVEDD[cm] 5.08 6.60 4.10 4.
+LVESD[cm] 3.48 5.77 2.60 4.
+RVEDD[cm] 3.02 2.70 2.01 1.
+RVESD[cm] 2.15 2.12 1.32 1.
+LADmax[cm] 4.30 5.04 2.48 2.
+LADmin[cm] 3.12 4.50 1.64 2.
+RADmax[cm] 4.54 3.56 2.52 2.
+RADmin[cm] 3.40 2.82 1.70 1.
+CO[L/min] 4.98 3.04 4.41 3.
+LVSV[mL] 66.4 40.6 55.1 38.
+LVEF[%] 53.6 23.7 59.7 30.
+RVEF[%] 49.63 37.74 56.94 49.
+fs [%] 31.5 12.5 36.6 16.
+Dsi 1.82 1.40 2.26 1.
+Ssi 2.65 1.60 3.54 2.
+MAP[mmHg] 97.8 92.4 81.8 80
+MPAP[mmHg] 26.5 26 19.85 17.
+
+https://doi.org/10.1371/journal.pone.0224663.t
+
+theremodelingduetothedilation[61].Reducedsphericityindexesattheend-systoleand
+end-diastoleinDCM(Table5)indicatea moreglobularshapefortheleftventricle[39].Ejec-
+tionfractionandfractionalshorteningareparametersusedfordiagnosisandriskstratification
+inDCMpatients[39].Moreover,fractionalshorteningis usedforriskassessmentinDCM
+[62].Reducedejectionfractionandfractionalshorteningintheleftventricle(Table5)indicate
+theexistenceofa dilatedcardiomyopathyintheadultcardiovascularsystemmodel.[39].The
+changesoccurintheleftventriclealsoaffecttheotherheartchambersandmayincreasethe
+leftatrialvolumeovera cardiaccycleorworseningtherightventricularfunctionasinthesim-
+ulations[63–65].
+Inpediatricpatients,fractionalshorteningandejectionfractionarethemostcommonly
+usedparameterstoevaluatetheleftventricularfunction[66].Measurementoffractionalshort-
+eningis basedontheassumptionofthecylindricalshapeoftheleftventricle.However,the
+assumptionofcylindricalshapecanbea limitationforusingejectionfraction[66].Relatively
+leftventricularhighsphericityindexvaluesinthechildcardiovascularsystemmodel(Table5)
+indicatethattheratiobetweenthelongaxisandmid-cavitydiameteris relativelyhigh.This
+indicatesa closeshapetoa cylindernearthebaseoftheleftventricleinthechildcardiovascu-
+larsystemmodel.Children’scardiacoutputreachesthesimilarlevelstothoseintheadultcar-
+diovascularsystemaround 15 yearswhilemeanarterialpressureremainsconsiderablylower
+inchildrenatthesameagewithrespecttomeanarterialpressurelevelinadults’cardiovascular
+system[36].Inthisstudy,bodysurfaceareawasselectedas1 m^2 correspondingto8–12years
+children’sbodysurfacearea[31]andthehemodynamicparametersobtainedfromthesimula-
+tionsforthechildcardiovascularsystemmodelscomparedtothisageinterval.Theaverage
+cardiacoutputattheseagesis around4.5L/minandchangeswithina largevariationrange
+[36].Thesystolicpressureinchildren’sleftventriclegenerallyremainsbelow 110 mmHg
+whilemeanarterialpressureis around 80 mmHginchildrencirculation[67].Reportedright
+ventricularend-diastolicandsystolicpressuresarearound5 mmHg, 28 mmHgrespectively
+andmeanpulmonaryarterialpressurecanreachupto 22 mmHgbeingslightlylowerwith
+respecttothoseofadultcardiovascularsysteminthechildrenaround9 yearsold[68].The
+simulatedpressuresinthehealthychildcardiovascularsystemweresimilartothosevalues
+reportedintheliterature.Meanoftheleftandrightventricularend-diastolicvolumeindexes
+inchildrenarearound 80 mL/m^2 withslightlyhigherrightventricularvolumeandmayreach
+tovaluesaround 100 mL/m^2 whiletheend-systolicvolumeintheventriclesis around 30 mL/
+m^2 andwith 45 mL/m^2 upperreferencelimit[51].Thevolumeindexesobtainedfromthesim-
+ulationsfor1 m^2 bodysurfaceareacorrespondswellwiththereportedvolumeindexesinliter-
+ature.Theleftatrialvolumesignalovera cardiaccycleinthehealthychildcardiovascular
+systemcorrespondstoa reportedaverageleftatrialvolumesignalovera cardiaccyclequite
+well[34].Moreover,thereportedrangeoftheatrialmaximalandminimalvolumeindexval-
+ues[51]matcheswiththesimulatedleftandrightatrialmaximalandminimalvolumeindexes
+inthehealthychildcardiovascularsystemfor1 m^2 bodysurfacearea.Typically,theleftven-
+tricularend-diastolicandend-systolicdiametersarearound4.1cmand2.6cm,therightven-
+tricularbasaldiameterattheendofthediastoleis around2 cmandtheleftatrialmaximal
+diameter2.9cmandchangingagainwithina physiologicvariationrangeforthestudiedage
+interval[69–71].Thesimulateddimensionsinthecardiacchambersremainwithinthephysio-
+logicrangeandmatchwiththereportedvaluesintheliterature.
+TheDCMcardiovascularsystemmodelsimulatingthechildcirculationrespondedtothe
+changesinparametersina similarwayastheadultDCMcardiovascularsystemmodel.Car-
+diacoutputandejectionfractionreducedfromhealthyvaluestothevaluescharacterizedas
+impaired[72,73].Theleftventricularvolumesignalovera cardiaccycleincreasedasa resultof
+dilatationandcausedilationintheleftatrialvolume,asreportedin[74].Leftventricularend-
+
+diastolicandend-systolicdiametersandrightventriculardiameterweresimilartopatient-spe-
+cificvaluesreportedin[73]andremainedwithinthereportedrangeinthechildrenforthe
+studiedageinterval[75].Moreover,theleftventricularfractionalshorteninginthechildDCM
+cardiovascularsystemmodelmatchedcloselytothereportedaveragevalueof 19 percentand
+remainedwithinthephysiologicvariationrangefortheDCMconditioninchildrenheart[75].
+MitralregurgitationmayoccurinDCMbecauseincreasedleftventricularsizecause
+improperleafletcoaptation[38].Simulationoftheregurgitantflowratethroughthemitral
+valverequiresa numericalmodeldescribingthemotionofleaflets[10,17]orzenerdiodeana-
+loguemodelsallowingreversebloodflow.Flowratesignalsthroughtheheartvalvesweresim-
+ulatedusingidealdiodesinthedevelopedcardiovascularsystemmodel.Therefore,thechange
+ofthevolumesignalsintheheartchambersdependsonlyforwardflowratesignals.Utilizing
+anelaboratedmitralvalvemodelwillallowsimulatingeffectsregurgitantflowrateontheleft
+ventricularfunctionasthechangeoftheleftventricularvolumesignaldependsonmitraland
+aorticvalveflowratesregardlessofthedirectionofthebloodflow(Eq4).Nonetheless,ideal
+diodemodelshavealsobeenusedwidelytosimulateclinicalscenariossuchasDCMand
+LVADtherapiesincardiovascularsystem[76,77].
+Thedevelopedcardiovascularsystemmodelis drivenbyanactivationfunctionwhichuti-
+lizestimesignaltosimulatethehemodynamicvariables.Clinically,wallstressandstrainare
+alsocommonlyusedphysiologicparameters.Simulationoftheseparametersrequiresper-
+formingfiniteelementanalysessincewallstressandstrainhaveorientationsinspaceandalso
+dependonthegeometryofmyocardium.Additionally,theinteractionbetweentheventricles
+throughtheintraventricularseptumcanbesimulatedusingfiniteelementanalyses.Theven-
+triclesinteractinthedevelopedcardiovascularsystemmodelduetochangeintheparameters
+suchascontractilityasafterloadandpreloadoftheheartchambersareinfluencedbecauseof
+variationofthisparameter.However,it shouldbenotedthatthedevelopedcardiovascularsys-
+temmodelsimulatedthehemodynamicparametersfornormalandDCMconditionsinadults
+andchildrenwithinthephysiologicalrange.Moreover,lumpedparametermodelshavethe
+advantageofperformingsimulationsinshortercomputationaltimes,andtheyarepowerful
+clinicaldecision-makingtools[14].
+TheDCMinadultandchildcardiovascularsystemmodelswassimulatedbyadjustingthe
+parametersinthecardiovascularsystemmodelsmanually.Progressionofheartfailure
+dependsoncomplexandinteractingmechanismswhicharenotentirelyunderstood[78].
+Modelingtheprogressionofheartfailurerequiresidentificationofthesemechanisms.There-
+fore,progressionoftheDCMwasnotincludedinthesimulations.Similarly,theinteracting
+compensatorymechanismsinheartfailurecanbeimplementedaftertheidentificationofthe
+exactmechanisms[79].
+Thecardiovascularsystemmodelpresentedinthisstudycanbeusedtosimulatedifferent
+clinicalcasesfordifferentagesandconditionsasit allowstosimulateclinicalindicators
+extractedfromthegeometryofheatchambers.Inthefuture,it is aimedtousethiscardiovas-
+cularsystemmodeltosimulateheartfailureforpediatricpatientsinpatient-specificstudiesto
+evaluatemechanicalcirculatorysupport.Animportantportionofthepediatricpatients
+implantedwitha heartpumpexhibitcomplicationsassociatedwithmechanicalcirculatory
+support[80].ContinuousandpulsatileflowLVADsarebeingtestedtouseinchildren.More-
+over,LVADsuccesscriteriainadultsincludeevaluationofparameterssuchasejectionfrac-
+tion,leftventricularend-diastolicvolume,leftventricularend-diastolicdiameter,left
+ventricularend-systolicdiameter,leftatrialvolume,rightatrialpressure[81].Thedeveloped
+cardiovascularsystemmodelcansimulatethedimensionsofheartchambersalongwiththe
+otherparameters.Theparametervaluesinthedevelopedmodelcanbetunedusingparameter
+estimationandsystemidentificationtechniquestosimulatepatient-specificcardiovascular
+
+systemdynamicsaspresentedin[4].Therefore,it couldbeusedtosimulatepatient-specific
+scenariosandevaluatedevicessuchasLVADsbeforeexperimentaltests.
+
+Conclusions
+Inthisstudy,a mathematicalmodelsimulatinghemodynamicparametersandclinicalindica-
+torsinthecardiovascularsystemwasdevelopedtoevaluateclinicalcasesinadultsandchil-
+dren.Thedevelopednumericalmodeldemonstrateditsfeasibilitytosimulateclinicalcases
+andcanbeusedtoevaluateclinicalcasesandtreatmenttechniquesinadultsandchildrenat
+differentages.
+
+Supportinginformation
+S1File.CardiovascularsystemModel.slx,MatlabSimulinkCodeformodelsimulation.
+(ZIP)
+
+AuthorContributions
+Conceptualization: SelimBozkurt.
+
+Writing– originaldraft: SelimBozkurt.
+
+Writing– review&editing: SelimBozkurt.
+
+References
+1. Lankhaar J-W,Ro ̈vekampFA,SteendijkP,FaesTJC,Westerhof BE,KindT, et al.Modeling theinstan-
+taneouspressure-volume relationof theleftventricle:a comparisonof sixmodels.AnnBiomedEng.
+2009;37:1710–1726.https://doi.org/10.1007/s10439-009-9742-xPMID: 19554450
+2. FaesTJ,Kerkhof PL.TheVolumeRegulationGraphversustheEjectionFractionasMetricsof Left
+VentricularPerformance in HeartFailurewithandwithouta Preserved EjectionFraction:A Mathemati-
+calModelStudy.ClinMedInsightsCardiol.2015;9: 73–91.https://doi.org/10.4137/CMC.S1 8748
+PMID: 26052232
+3. SongZ, GuK,GaoB,WanF, ChangY,ZengY.Hemodynamic effectsof varioussupportmodesof con-
+tinuousflowLVADsonthecardiovascularsystem:A numerical study.MedSciMonitIntMedJ ExpClin
+Res.2014;20:733–741.https://doi.org/10.12659/MSM.890 824 PMID: 24793178
+4. EllweinLM,PopeSR,XieA,BatzelJJ,KelleyCT,OlufsenMS.Patient-specificmodeling of cardiovas-
+cularandrespiratory dynamicsduringhypercapnia.MathBiosci.2013;241:56–74.https://doi.org/10.
+1016/j.mbs.2012.09.003PMID: 23046704
+5. GaudenziF, AvolioAP.Lumpedparametermodelof cardiovascular-respiratoryinteraction.ConfProc
+AnnuIntConfIEEEEngMedBiolSocIEEEEngMedBiolSocAnnuConf.2013;2013:473–476.
+https://doi.org/10.1109/EMBC.2013.66095 39 PMID: 24109726
+6. vandeVosseFN,StergiopulosN.PulseWavePropagation in theArterialTree.AnnuRevFluidMech.
+2011;43:467–499. https://doi.org/10.1146/annurev-fluid-122109- 160730
+7. CoxLGE,Loerakker S,RuttenMCM,deMolBAJM,vandeVosseFN.A mathematicalmodelto evalu-
+atecontrolstrategiesformechanical circulatorysupport.ArtifOrgans.2009;33:593–603.https://doi.
+org/10.1111/j.1525-1594.2009.00755.xPMID: 19558561
+8. BovendeerdPHM,BorsjeP,ArtsT, vanDeVosseFN.Dependenceof IntramyocardialPressureand
+CoronaryFlowonVentricularLoadingandContractility:A ModelStudy.AnnBiomedEng.2006;34:
+1833–1845.https://doi.org/10.1007/s10439-006-9189-2PMID: 17048105
+9. JongenGJLM,vanderHout-vanderJagtMB,OeiSG,vandeVosseFN,BovendeerdPHM.Simulation
+of fetalheartratevariabilitywitha mathematicalmodel.MedEngPhys.2017;42:55–64.PMID:
+28196652
+10. BozkurtS,BozkurtS.In-silicoevaluation of leftventricular unloadingundervaryingspeedcontinuous
+flowleftventricular assistdevicesupport.Biocybern BiomedEng.2017;37:373–387.https://doi.org/
+10.1016/j.bbe.2017.03.0 03
+
+11. Bhattacharya-GhoshB,BozkurtS,RuttenMCM,vandeVosseFN,Dı ́az-ZuccariniV.Anin silicocase
+studyof idiopathicdilatedcardiomyopathyviaa multi-scalemodelof thecardiovascular system.Com-
+putBiolMed.2014;53:141–153.https://doi.org/10.1016/j.compbiomed.2014.06.013PMID: 25147131
+12. BozkurtS.In-silicomodeling of leftventricleto simulatedilatedcardiomyopathyandcf-lvadsupport.J
+MechMedBiol.2017;17:1750034.https://doi.org/10.1142/S02195194 17500348
+13. ShefferL, Santamore WP,BarneaO.Cardiovascularsimulationtoolbox.CardiovascEngDordrNeth.
+2007;7: 81–88.https://doi.org/10.1007/s10558-007-9030-zPMID: 17570062
+14. ShimizuS,UneD,KawadaT, HayamaY,KamiyaA,ShishidoT, et al.Lumpedparametermodelfor
+hemodynamic simulationof congenital heartdiseases.J PhysiolSciJPS.2018;68:103–111.https://
+doi.org/10.1007/s12576-017-0585-1PMID: 29270856
+15. MacGregorJ. ByJanetMacGregor—Introductionto theAnatomyandPhysiologyof Children:A Guide
+forStudentsof Nursing,ChildCareandHealth.2 edition.ROUTLEDGE;2008.
+16. UdelsonJE.LeftVentricularShape:TheForgotten Stepchildof RemodelingParameters.JACCHeart
+Fail.2017;5: 179–181.https://doi.org/10.1016/j.jchf.2017.01.005PMID: 28254123
+17. KorakianitisT, ShiY.A concentratedparameter modelforthehumancardiovascular systemincluding
+heartvalvedynamicsandatrioventricularinteraction. MedEngPhys.2006;28:613–628.PMID:
+16293439
+18. WalkerLA,ButtrickPM.Therightventricle:biologicinsightsandresponseto disease:updated.Curr
+CardiolRev.2013;9: 73–81.https://doi.org/10.2174/1573403 13805076296 PMID: 23092273
+19. DenslowS,WilesHB.Rightventricularvolumesrevisited:a simplemodelandsimpleformulaforecho-
+cardiographic determination.J AmSocEchocardiogrOffPublAmSocEchocardiogr. 1998;11:864–
+873.
+20. HollandDJ,SharmanJE,LeanoRL,Marwick TH.Genderdifferencesin systolictissuevelocity:roleof
+leftventricular length.EurJ EchocardiogrJ WorkGroupEchocardiogrEurSocCardiol.2009;10:941–
+946.https://doi.org/10.1093/ejechocard/jep103PMID: 19720628
+21. KossaifyA.EchocardiographicAssessment of theRightVentricle,fromtheConventionalApproachto
+SpeckleTrackingandThree-DimensionalImaging,andInsightsintothe“RightWay”to ExploretheFor-
+gottenChamber.ClinMedInsightsCardiol.2015;9: 65–75.https://doi.org/10.4137/CMC.S2 7462
+22. PeverillRE,ChouB,DonelanL. LeftventricularlongaxistissueDopplersystolicvelocityis indepen-
+dentlyrelatedto heartrateandbodysize.PloSOne.2017;12:e0173383.https://doi.org/10.1371/
+journal.pone.01733 83 PMID: 28288162
+23. RudskiLG,LaiWW,AfilaloJ, HuaL, HandschumacherMD,ChandrasekaranK,et al.Guidelines for
+theechocardiographicassessment of therightheartin adults:a reportfromtheAmericanSocietyof
+EchocardiographyendorsedbytheEuropeanAssociationof Echocardiography,a registeredbranchof
+theEuropeanSocietyof Cardiology,andtheCanadianSocietyof Echocardiography.J AmSocEcho-
+cardiogrOffPublAmSocEchocardiogr. 2010;23:685–713;quiz786–788.https://doi.org/10.1016/j.
+echo.2010.05.010PMID: 20620859
+24. UrsinoM.Interaction betweencarotidbaroregulationandthepulsatingheart:a mathematicalmodel.
+AmJ Physiol.1998;275:H1733–1747.https://doi.org/10.1152/ajpheart.1998.275.5.H1733PMID:
+9815081
+25. HeldtT, ShimEB,KammRD,MarkRG.Computational modeling of cardiovascular responseto ortho-
+staticstress.J ApplPhysiolBethesdaMd1985.2002;92:1239–1254.https://doi.org/10.1152/
+japplphysiol.00241.2001 PMID: 11842064
+26. PinskyMR.Therightventricle:interactionwiththepulmonarycirculation. CritCare.2016;20:266.
+https://doi.org/10.1186/s13054-016-1440-0PMID: 27613549
+27. HallJE.GuytonandHallTextbookof MedicalPhysiology, 13e. 13 edition. Philadelphia,PA:Saunders;
+2015.
+28. BlancoPJ,Feijo ́o RA.A 3D-1D-0DComputationalModelfortheEntireCardiovascularSystem.Meca ́-
+nicaComput.2010;29:5887–5911.
+29. AlbaneseA,ChengL, UrsinoM,ChbatNW.Anintegratedmathematical modelof thehumancardiopul-
+monarysystem:modeldevelopment.AmJ PhysiolHeartCircPhysiol.2016;310:H899–921. https://
+doi.org/10.1152/ajpheart.00230.2014 PMID: 26683899
+30. ShiY,LawfordP,HoseR.Reviewof Zero-Dand1-DModelsof BloodFlowin theCardiovascularSys-
+tem.BiomedEngOnLine.2011;10:33.https://doi.org/10.1186/1475-925X-10-33PMID: 21521508
+31. El EdelbiR,LindemalmS,EksborgS.Estimationof bodysurfaceareain variouschildhoodages—vali-
+dationof theMostellerformula.ActaPaediatr OsloNor1992.2012;101:540–544.https://doi.org/10.
+1111/j.1651-2227.2011.02580.x
+32. KianiA,ShakibiJG.Normalvalueof leftventricular end-systolicelastancein infantsandchildren.IranJ
+MedSci.2003;28:169–172.
+
+33. RegenDM,GrahamTP,WyseRK,DeanfieldJ, FranklinRC.Left-ventricularcavitydimensions in chil-
+drenwithnormalanddilatedhearts.PediatrCardiol.1988;9: 17–24.https://doi.org/10.1007/
+BF02279878PMID: 2964589
+34. PoutanenT, JokinenE,SairanenH,TikanojaT. Leftatrialandleftventricularfunctionin healthychildren
+andyoungadultsassessedbythreedimensional echocardiography.HeartBrCardSoc.2003;89:544–
+549.
+35. GardnerAW,ParkerDE.Associationbetweenarterialcompliance andagein participants9 to 77years
+old.Angiology. 2010;61:37–41.https://doi.org/10.1177/0003 31970933958 8 PMID: 19638351
+36. CattermoleGN,LeungPYM,HoGYL,LauPWS,ChanCPY,ChanSSW,et al.Thenormalrangesof
+cardiovascular parametersmeasuredusingtheultrasonic cardiacoutputmonitor.PhysiolRep.2017;5.
+https://doi.org/10.14814/phy2.1 3195 PMID: 28320891
+37. RaesA,VanAkenS,CraenM,DonckerwolckeR,VandeWalleJ. A referenceframeforbloodvolume
+in childrenandadolescents.BMCPediatr.2006;6: 3. https://doi.org/10.1186/1471-2431-6-3PMID:
+16503982
+38. JappAG,GulatiA,CookSA,CowieMR,PrasadSK.TheDiagnosisandEvaluationof DilatedCardio-
+myopathy. J AmCollCardiol.2016;67:2996–3010.https://doi.org/10.1016/j.jacc.2016.03.590PMID:
+27339497
+39. MathewT, WilliamsL, NavaratnamG,RanaB,Wheeler R,CollinsK,et al.Diagnosisandassessment
+of dilatedcardiomyopathy:a guidelineprotocolfromtheBritishSocietyof Echocardiography.EchoRes
+Pract.2017;4: G1–G13.https://doi.org/10.1530/ERP-16-00 37 PMID: 28592613
+40. JelencM,JelencB,VrtovecB,KnezˇevičI. Mitralregurgitation andaxialflowleftventricularassist
+device:a computersimulationstudy.ASAIOJ AmSocArtifInternOrgans1992.2013;59:405–409.
+https://doi.org/10.1097/MAT.0b013e31829ff57dPMID: 23820280
+41. BozkurtS.Effectof CerebralFlowAutoregulationFunctiononCerebralFlowRateUnderContinuous
+FlowLeftVentricularAssistDeviceSupport.ArtifOrgans.2018;42:800–813. https://doi.org/10.1111/
+aor.13148PMID: 29726017
+42. PorterGA,MakuckRF,RivkeesSA.Intracellularcalciumplaysanessentialrolein cardiacdevelop-
+ment.DevDyn.2003;227:280–290. https://doi.org/10.1002/dvdy.10307 PMID: 12761855
+43. BrownSB,RainaA,KatzD,SzerlipM,WiegersSE,ForfiaPR.Longitudinalshorteningaccountsforthe
+majorityof rightventricular contractionandimprovesafterpulmonaryvasodilator therapyin normalsub-
+jectsandpatientswithpulmonary arterialhypertension.Chest.2011;140:27–33.https://doi.org/10.
+1378/chest.10-1136PMID: 21106653
+44. VeronesiF, CorsiC,CaianiEG,SartiA,Lamberti C.Trackingof leftventricularlongaxisfromreal-time
+three-dimensionalechocardiographyusingopticalflowtechniques. IEEETransInfTechnolBiomed
+PublIEEEEngMedBiolSoc.2006;10:174–181.
+45. Ostenfeld E,Flachskampf FA.Assessment of rightventricular volumesandejectionfractionbyecho-
+cardiography: fromgeometric approximationsto realisticshapes.EchoResPract.2015;2: R1–R11.
+https://doi.org/10.1530/ERP-14-00 77 PMID: 26693327
+46. JorstigS,WaldenborgM,Lide ́n M,Wodecki M,Thunberg P.Determinationof RightVentricularVolume
+byCombiningEchocardiographicDistanceMeasurements.EchocardiogrMtKiscoN.2016;33:844–
+853.https://doi.org/10.1111/echo.131 73 PMID: 26841195
+47. JorstigS,WaldenborgM,Lide ́n M,Thunberg P.Rightventricular ejectionfractionmeasurements using
+two-dimensionaltransthoracicechocardiographybyapplyinganellipsoidmodel.Cardiovasc Ultra-
+sound.2017;15:4. https://doi.org/10.1186/s12947-017-0096-5 PMID: 28270161
+48. FukutaH,LittleWC.Thecardiaccycleandthephysiologic basisof leftventricular contraction, ejection,
+relaxation,andfilling.HeartFailClin.2008;4: 1–11.https://doi.org/10.1016/j.hfc.2007.10.004PMID:
+18313620
+49. KovalovaS,NecasJ, VespalecJ. Whatis a “normal”rightventricle?EurJ Echocardiogr.2006;7: 293–
+297.https://doi.org/10.1016/j.euje.2005.06.
+50. HudsmithLE,PetersenSE,FrancisJM,RobsonMD,NeubauerS.Normalhumanleftandrightventric-
+ularandleftatrialdimensions usingsteadystatefreeprecessionmagneticresonanceimaging. J Cardi-
+ovascMagnResonOffJ SocCardiovasc MagnReson.2005;7: 775–782.
+51. Kawel-BoehmN,MaceiraA,Valsangiacomo-BuechelER,Vogel-ClaussenJ, TurkbeyEB,WilliamsR,
+et al.Normalvaluesforcardiovascular magneticresonancein adultsandchildren. J CardiovascMagn
+ResonOffJ SocCardiovascMagnReson.2015;17:29.https://doi.org/10.1186/s12968-015-0111-
+PMID: 25928314
+52. El MissiriAM,El MeniawyKAL,SakrSAS,MohamedASE.Normalreference valuesof echocardio-
+graphicmeasurementsin youngEgyptianadults.EgyptHeartJ. 2016;68:209–215.https://doi.org/10.
+1016/j.ehj.2016.01.
+
+53. GibsonPH,BecherH,ChoyJB.Classificationof leftventricular size:diameteror volumewithcontrast
+echocardiography?OpenHeart.2014;1: e000147. https://doi.org/10.1136/openhrt-2014-
+PMID: 25525505
+54. HoSY,NihoyannopoulosP.Anatomy,echocardiography, andnormalrightventricular dimensions.
+Heart.2006;92:i2–i13.https://doi.org/10.1136/hrt.2005.077875PMID: 16543598
+55. KossaifyA.EchocardiographicAssessment of theRightVentricle,fromtheConventionalApproachto
+SpeckleTrackingandThree-DimensionalImaging,andInsightsintothe“RightWay”to ExploretheFor-
+gottenChamber.ClinMedInsightsCardiol.2015;9: 65–75.https://doi.org/10.4137/CMC.S2 7462
+56. KouS,CaballeroL, DulgheruR,VoilliotD,DeSousaC,Kacharava G,et al.Echocardiographicrefer-
+encerangesfornormalcardiacchambersize:resultsfromtheNORREstudy.EurHeartJ Cardiovasc
+Imaging.2014;15:680–690. https://doi.org/10.1093/ehjci/jet284PMID: 24451180
+57. LangRM,BadanoLP,Mor-AviV,AfilaloJ, Armstrong A,ErnandeL, et al.Recommendationsforcar-
+diacchamberquantificationbyechocardiographyin adults:anupdatefromtheAmericanSocietyof
+EchocardiographyandtheEuropeanAssociationof Cardiovascular Imaging.J AmSocEchocardiogr
+OffPublAmSocEchocardiogr. 2015;28:1–39.e14.https://doi.org/10.1016/j.echo.2014.10.003 PMID:
+25559473
+58. LangRM,BierigM,DevereuxRB,FlachskampfFA,FosterE,PellikkaPA,et al.Recommendationsfor
+chamberquantification.EurJ EchocardiogrJ WorkGroupEchocardiogrEurSocCardiol.2006;7: 79–
+108.https://doi.org/10.1016/j.euje.2005.12.014PMID: 16458610
+59. GavazziA,DeMariaR,RenostoG,MoroA,BorgiaM,CaroliA,et al.Thespectrumof leftventricular
+sizein dilatedcardiomyopathy:clinicalcorrelatesandprognosticimplications. SPIC(ItalianMulticenter
+CardiomyopathyStudy)Group.AmHeartJ. 1993;125:410–422.https://doi.org/10.1016/0002-
+(93)90020-a PMID: 8427135
+60. MatsumuraY,ElliottPM,MahonNG,VirdeeMS,DoiY,McKennaWJ.Familialdilatedcardiomyopathy:
+assessment of leftventricularsystolicanddiastolicfunctionusingDopplertissueimagingin asymptom-
+aticrelatives withleftventricular enlargement.Heart.2006;92:405–406.https://doi.org/10.1136/hrt.
+2005.065474 PMID: 16501207
+61. WeintraubRG,Semsarian C,MacdonaldP.Dilatedcardiomyopathy.TheLancet.2017;390:400–414.
+https://doi.org/10.1016/S0140-6736(16)31713-
+62. NiemeijerMN,LeeningMJG,vandenBergME,HofmanA,FrancoOH,DeckersJW,et al.Subclinical
+Abnormalities in EchocardiographicParametersandRiskof SuddenCardiacDeathin a GeneralPopu-
+lation:TheRotterdamStudy.J CardFail.2016;22:17–23.https://doi.org/10.1016/j.cardfail.2015.06.
+007 PMID: 26093333
+63. FerreiraF, GalrinhoA,SoaresR,BrancoL, AbreuJ, FelicianoJ, et al.Prognosticvalueof leftatrialvol-
+umein patientswithdilatedcardiomyopathy.RevPortCardiolOrgaoOfSocPortCardiolPortJ Cardiol
+OffJ PortSocCardiol.2013;32:865–872.https://doi.org/10.1016/j.repc.2012.12.017PMID: 24119867
+64. GopalD,WangJ, HanY.Determinants of NormalLeftAtrialVolumein HeartFailurewithModerate-to-
+SeverelyReducedEjectionFraction.In:CardiologyResearchandPractice[Internet]. 2018[cited4 Nov
+2018].https://doi.org/10.1155/2018/7512758PMID: 29850229
+65. Parcharidou DG,Giannakoulas G,Efthimiadis GK,KarvounisH,PapadopoulouKN,DalamangaE,
+et al.Rightventricular functionin ischemicor idiopathicdilatedcardiomyopathy.CircJ OffJ JpnCirc
+Soc.2008;72:238–244.
+66. TissotC,SinghY,SekarskiN.EchocardiographicEvaluationof VentricularFunction—FortheNeona-
+tologistandPediatricIntensivist.FrontPediatr.2018;6.https://doi.org/10.3389/fped.2018.
+67. deSimoneG,DevereuxRB,KimballTR,RomanMJ,PalmieriV,CelentanoA,et al.Relationof heart
+rateto leftventricular dimensions in normotensive,normal-weightchildren,adolescents andadults.Ital
+HeartJ OffJ ItalFedCardiol.2001;2: 599–604.
+68. KrovetzLJ,McLoughlin TG,MitchellMB,SchieblerGL.Hemodynamic findingsin normalchildren.
+PediatrRes.1967;1: 122–130. https://doi.org/10.1203/00006450-196703000- 00006 PMID: 6029810
+69. KoestenbergerM,NagelB,RavekesW,AvianA,BurmasA,GranglG,et al.Referencevaluesandcal-
+culationof z-scoresof echocardiographicmeasurements of thenormalpediatricrightventricle.AmJ
+Cardiol.2014;114:1590–1598.https://doi.org/10.1016/j.amjcard.2014.08.028PMID: 25248810
+70. MajongaED,RehmanAM,McHughG,MujuruHA,NathooK,PatelMS,et al.Echocardiographicrefer-
+encerangesin olderchildrenandadolescents in sub-SaharanAfrica.IntJ Cardiol.2017;248:409–413.
+https://doi.org/10.1016/j.ijcard.2017.06.109PMID: 28711335
+71. OranB,BodurAS,ArslanD,C ̧ ımenD,Gu ̈ venc ̧ O.NormalM modevaluesin healthyTurkishchildren.
+TurkJ MedSci.2014;44:756–763.PMID: 25539541
+72. CainPA,AhlR,HedstromE,UganderM,Allansdotter-JohnssonA,FribergP,et al.Ageandgender
+specificnormalvaluesof leftventricularmass,volumeandfunctionforgradientechomagnetic
+
+resonance imaging:a crosssectionalstudy.BMCMedImaging.2009;9: 2. https://doi.org/10.1186/
+1471-2342-9-2PMID: 19159437
+73. FriedbergMK.Chapter9—EchocardiographicQuantitationof VentricularFunction.In:JefferiesJL,
+ChangAC,Rossano JW,ShaddyRE,TowbinJA,editors.HeartFailurein theChildandYoungAdult.
+Boston:AcademicPress;2018.pp.105–124.https://doi.org/10.1016/B978-0-12-802393-8.00009-
+74. MuscogiuriG,CilibertiP,MastrodicasaD,ChinaliM,RinelliG,SantangeloTP,et al.Resultsof Late
+Gadolinium Enhancementin ChildrenAffectedbyDilatedCardiomyopathy.FrontPediatr.2017;5: 13.
+https://doi.org/10.3389/fped.2017.00013PMID: 28220144
+75. LeeCK,MargossianR,SleeperLA,CanterCE,ChenS,TaniLY,et al.Variabilityof M-modeversus
+two-dimensionalechocardiographymeasurements in children withdilatedcardiomyopathy.Pediatr
+Cardiol.2014;35:658–667.https://doi.org/10.1007/s00246-013-0835-9PMID: 24265000
+76. BozkurtS,vandeVosseFN,RuttenMCM.Improvingarterialpulsatility byfeedbackcontrolof a contin-
+uousflowleftventricular assistdeviceviain silicomodeling.IntJ ArtifOrgans.2014;37:773–785.
+https://doi.org/10.5301/ijao.5000328 PMID: 24970558
+77. Granegger M,MasettiM,LaohasurayodhinR,SchloeglhoferT, ZimpferD,SchimaH,et al.Continuous
+Monitoringof AorticValveOpeningin RotaryBloodPumpPatients.IEEETransBiomedEng.2016;63:
+1201–1207.https://doi.org/10.1109/TBME.2015.24 89188 PMID: 26461795
+78. MannDouglasL, BristowMichaelR.Mechanisms andModelsin HeartFailure.Circulation. 2005;111:
+2837–2849.https://doi.org/10.1161/CIRCULATIONAHA.104.50 0546 PMID: 15927992
+79. JacksonG,GibbsCR,DaviesMK,LipGYH.Pathophysiology.BMJ.2000;320:167–170.https://doi.
+org/10.1136/bmj.320.7228.167PMID: 10634740
+80. SuJA,MenteerJ. Outcomesof BerlinHeartEXCOR®pediatricventricular assistdevicesupportin
+patientswithrestrictiveandhypertrophiccardiomyopathy.PediatrTransplant.2017;21.https://doi.org/
+10.1111/petr.
+81. AnwerLA,PoddiS,TchantchaleishviliV,DalyRC,ToegH,StrandJJ,et al.LeftVentricularAssist
+Devices:HowDoWeDefineSuccess?ASAIOJ AmSocArtifInternOrgans1992.2019;65:430–435.
+https://doi.org/10.1097/MAT.000 0000000000894 PMID: 30312213
+
+This is a offline tool, your data stays locally and is not send to any server!
+Feedback & Bug Reports
