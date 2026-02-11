@@ -114,6 +114,20 @@ params.Vrv_sys_target = patient_data.Vrv_sys;
 params.Dlv_dias_target = patient_data.Dlv_dias;
 params.Dlv_sys_target = patient_data.Dlv_sys;
 
+% ESTIMASI VOLUME DARAH DARI BSA (Linear Regression)
+fprintf('   Estimasi volume darah dari BSA...\n');
+[TBV_est, UBV_est, SBV_est] = estimate_blood_volume_from_BSA(...
+    patient_data.BSA, patient_data.age_months, patient_data.sex);
+
+fprintf('   TBV (Total Blood Volume): %.0f mL\n', TBV_est);
+fprintf('   UBV (Unstressed, 70%%): %.0f mL\n', UBV_est);
+fprintf('   SBV (Stressed, 30%%): %.0f mL\n\n', SBV_est);
+
+% Simpan estimasi untuk referensi
+params.TBV_estimated = TBV_est;
+params.UBV_estimated = UBV_est;
+params.SBV_estimated = SBV_est;
+
 % Initial bounds untuk optimisasi (dari Tabel 1, Bozkurt 2022)
 % Untuk anak dengan mild DCM (Model 1)
 bounds.Ees_lv = [1.5, 3.5];      % mmHg/mL
@@ -136,7 +150,15 @@ bounds.Rap = [0.138, 0.158];     % mmHg·s/mL
 bounds.Cap = [0.053, 0.103];     % mL/mmHg
 bounds.Rvp = [0.038, 0.058];     % mmHg·s/mL
 bounds.Cvp = [11.35, 16.35];     % mL/mmHg
-bounds.Vblood = [550, 750];      % mL
+
+% BOUNDS VBLOOD BERDASARKAN ESTIMASI TBV
+% Gunakan ±20% dari estimasi TBV sebagai bounds
+Vblood_margin = 0.20;  % ±20%
+bounds.Vblood = [TBV_est * (1 - Vblood_margin), ...
+                 TBV_est * (1 + Vblood_margin)];
+fprintf('   Vblood bounds (±20%% dari TBV): [%.0f, %.0f] mL\n', ...
+    bounds.Vblood(1), bounds.Vblood(2));
+
 bounds.Klv = [1.0, 2.0];         % -
 bounds.Krv = [1.5, 4.5];         % -
 
