@@ -21,47 +21,66 @@ fprintf('==============================================\n\n');
 %% 2. LOAD DATA PASIEN
 fprintf('[1/6] Loading data pasien...\n');
 
-% Contoh data pasien (ganti dengan data real dari protokol DCM)
-patient_data = struct();
-
-% Data Demografis
-patient_data.name = 'Pasien 1';
-patient_data.age_months = 102;  % 8 tahun 6 bulan
-patient_data.sex = 'M';  % M/F
-patient_data.height_cm = 130;
-patient_data.weight_kg = 25;
-patient_data.BSA = 0.94;  % m^2
-
-% Data Hemodinamik (dari Ekokardiografi)
-patient_data.HR = 101;  % bpm
-patient_data.Pao_sys = 109;  % mmHg
-patient_data.Pao_dias = 60;  % mmHg
-patient_data.CO = 5.3;  % L/min
-
-% Volume Ventrikel (mL)
-patient_data.Vlv_dias = 100;  % LVEDV
-patient_data.Vlv_sys = 48;    % LVESV
-patient_data.Vrv_dias = 83;   % RVEDV
-patient_data.Vrv_sys = 26;    % RVESV
-
-% Diameter Ventrikel (cm)
-patient_data.Dlv_dias = 4.6;  % LVEDD
-patient_data.Dlv_sys = 3.4;   % LVESD
-patient_data.Drv_dias = 2.7;  % RVEDD (basal)
-patient_data.Drv_sys = 1.7;   % RVESD (basal)
-
-% Panjang Sumbu Panjang (cm)
-patient_data.llv_sys = 5.9;
-patient_data.llv_dias = 7.1;
-patient_data.llv = (patient_data.llv_sys + patient_data.llv_dias) / 2;
-
-patient_data.lrv_sys = 5.1;
-patient_data.lrv_dias = 6.5;
-patient_data.lrv = (patient_data.lrv_sys + patient_data.lrv_dias) / 2;
-
-% Data Validasi
-patient_data.EF_measured = 52;  % %
-patient_data.FS_measured = 26;  % %
+% CEK APAKAH ADA DATA PASIEN DI WORKSPACE
+% Jika Anda sudah menjalankan file pasien (misal: pasien_001.m),
+% maka variabel 'patient_data' sudah ada di workspace
+if exist('patient_data', 'var')
+    fprintf('   ✓ Menggunakan data pasien dari workspace\n');
+    fprintf('   Nama: %s\n', patient_data.name);
+else
+    % Jika tidak ada, gunakan data contoh
+    fprintf('   ⚠ Tidak ada data pasien di workspace\n');
+    fprintf('   Menggunakan data contoh (Mild DCM, 8.5 tahun)\n');
+    fprintf('   \n');
+    fprintf('   CARA MENGGUNAKAN DATA PASIEN SENDIRI:\n');
+    fprintf('   1. Edit file: data/patient_template.m\n');
+    fprintf('   2. Isi dengan data pasien real\n');
+    fprintf('   3. Jalankan: >> patient_template\n');
+    fprintf('   4. Lalu jalankan: >> main_simulation\n');
+    fprintf('   \n');
+    
+    % Data contoh pasien (Mild DCM, 8.5 tahun)
+    patient_data = struct();
+    
+    % Data Demografis
+    patient_data.name = 'Contoh Pasien (Mild DCM)';
+    patient_data.age_months = 102;  % 8 tahun 6 bulan
+    patient_data.sex = 'M';  % M/F
+    patient_data.height_cm = 130;
+    patient_data.weight_kg = 25;
+    patient_data.BSA = 0.94;  % m^2
+    
+    % Data Hemodinamik (dari Ekokardiografi)
+    patient_data.HR = 101;  % bpm
+    patient_data.Pao_sys = 109;  % mmHg
+    patient_data.Pao_dias = 60;  % mmHg
+    patient_data.CO = 5.3;  % L/min
+    
+    % Volume Ventrikel (mL)
+    patient_data.Vlv_dias = 100;  % LVEDV
+    patient_data.Vlv_sys = 48;    % LVESV
+    patient_data.Vrv_dias = 83;   % RVEDV
+    patient_data.Vrv_sys = 26;    % RVESV
+    
+    % Diameter Ventrikel (cm)
+    patient_data.Dlv_dias = 4.6;  % LVEDD
+    patient_data.Dlv_sys = 3.4;   % LVESD
+    patient_data.Drv_dias = NaN;  % RVEDD (tidak ada di protokol)
+    patient_data.Drv_sys = NaN;   % RVESD (tidak ada di protokol)
+    
+    % Panjang Sumbu Panjang (cm) - KONSTAN sesuai asumsi Bozkurt 2022
+    patient_data.llv = 6.5;
+    patient_data.llv_sys = 6.5;   % Konstan
+    patient_data.llv_dias = 6.5;  % Konstan
+    
+    patient_data.lrv = 5.8;
+    patient_data.lrv_sys = 5.8;   % Konstan
+    patient_data.lrv_dias = 5.8;  % Konstan
+    
+    % Data Validasi
+    patient_data.EF_measured = 52;  % %
+    patient_data.FS_measured = 26;  % %
+end
 
 fprintf('   Pasien: %s\n', patient_data.name);
 fprintf('   Usia: %.1f bulan (%.1f tahun)\n', patient_data.age_months, patient_data.age_months/12);

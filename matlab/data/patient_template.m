@@ -2,11 +2,18 @@
 % File ini adalah template untuk input data pasien
 % Berdasarkan Protokol DCM
 %
-% Cara menggunakan:
-% 1. Copy file ini dan rename sesuai nama pasien (misal: pasien_001.m)
-% 2. Isi semua field dengan data dari ekokardiografi
-% 3. Jalankan file ini untuk membuat struktur patient_data
-% 4. Save ke .mat file atau gunakan langsung di main_simulation.m
+% CARA MENGGUNAKAN:
+% 1. Copy file ini dan rename sesuai pasien (misal: pasien_001.m)
+% 2. Isi semua field WAJIB dengan data dari ekokardiografi
+% 3. Jalankan file pasien: >> pasien_001
+%    Ini akan membuat variabel 'patient_data' di workspace
+% 4. Lalu jalankan: >> main_simulation
+%    Script akan otomatis menggunakan 'patient_data' dari workspace
+%
+% ATAU gunakan cara langsung:
+% 1. Edit file ini dengan data pasien
+% 2. Jalankan: >> patient_template
+% 3. Lalu jalankan: >> main_simulation
 
 %% INFORMASI PASIEN
 patient_data = struct();
@@ -65,18 +72,20 @@ patient_data.Vrv_sys = 26;    % RVESV
 patient_data.Dlv_dias = 4.6;  % LVEDD
 patient_data.Dlv_sys = 3.4;   % LVESD
 
-% Diameter Ventrikel Kanan (cm) - basal diameter
-patient_data.Drv_dias = 2.7;  % RVEDD
-patient_data.Drv_sys = 1.7;   % RVESD
+% Diameter Ventrikel Kanan (cm) - OPSIONAL (jika tidak ada di echo, biarkan NaN)
+patient_data.Drv_dias = NaN;  % RVEDD - Tidak wajib dari protokol
+patient_data.Drv_sys = NaN;   % RVESD - Tidak wajib dari protokol
 
-% Panjang Sumbu Panjang Ventrikel (cm)
-patient_data.llv_sys = 5.9;   % Sistol
-patient_data.llv_dias = 7.1;  % Diastol
-patient_data.llv = (patient_data.llv_sys + patient_data.llv_dias) / 2;  % Rata-rata
+% Panjang Sumbu Panjang Ventrikel (cm) - WAJIB dari protokol
+% CATATAN: Sesuai asumsi model Bozkurt 2022, panjang sumbu diasumsikan KONSTAN
+% Jika echo hanya memberikan 1 nilai, gunakan nilai tersebut untuk semua
+patient_data.llv = 6.5;       % Dari protokol (cm)
+patient_data.llv_sys = 6.5;   % Sama dengan llv (asumsi konstan)
+patient_data.llv_dias = 6.5;  % Sama dengan llv (asumsi konstan)
 
-patient_data.lrv_sys = 5.1;
-patient_data.lrv_dias = 6.5;
-patient_data.lrv = (patient_data.lrv_sys + patient_data.lrv_dias) / 2;
+patient_data.lrv = 5.8;       % Dari protokol (cm)
+patient_data.lrv_sys = 5.8;   % Sama dengan lrv (asumsi konstan)
+patient_data.lrv_dias = 5.8;  % Sama dengan lrv (asumsi konstan)
 
 % Cardiac Output (L/min)
 patient_data.CO = 5.3;
